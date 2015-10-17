@@ -128,7 +128,12 @@ function! s:SlimeGetConfig()
     if exists("g:slime_default_config")
       let b:slime_config = g:slime_default_config
     end
-    call s:SlimeDispatch('Config')
+    if has_key('SKIP_CONFIG_PROMPT', b:slime_config) &&
+       b:slime_config['SKIP_CONFIG_PROMPT'] == 'true'
+       " noop
+    else
+      call s:SlimeDispatch('Config')
+    end
   end
 endfunction
 
